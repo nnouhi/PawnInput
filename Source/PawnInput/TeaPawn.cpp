@@ -38,6 +38,8 @@ ATeaPawn::ATeaPawn()
 void ATeaPawn::BeginPlay()
 {
 	Super::BeginPlay();
+	UE_LOG(LogTemp, Warning, TEXT("TEA PAWN CALLED"));
+
 }
 
 // Called to bind functionality to input
@@ -75,14 +77,11 @@ void ATeaPawn::SetStrafeAmount(float Value)
 {
 	DeltaLocation = FVector(0.0f, Value * MoveSpeed * GetWorld()->DeltaTimeSeconds,0.0f);
 	AddActorLocalOffset(DeltaLocation, true);
-	
-
 }
 
 void ATeaPawn::OnBeginFire()
 {
-	UE_LOG(LogTemp, Warning, TEXT("Begin Fire"));
-
+	//UE_LOG(LogTemp, Warning, TEXT("Begin Fire"));
 }
 
 void ATeaPawn::OnEndFire()

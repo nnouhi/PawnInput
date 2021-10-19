@@ -23,7 +23,5 @@ private:
 	UFUNCTION()
 		void StartGame();
 	UFUNCTION()
-		void GameOver();
-
-	int PointsCollected=0;
+		void GameOver(bool flag);
 };

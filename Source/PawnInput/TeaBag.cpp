@@ -12,7 +12,7 @@ ATeaBag::ATeaBag()
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 	TeabagMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Teabag Mesh"));
-	TeabagMesh->SetupAttachment(RootComponent);
+	SetRootComponent(TeabagMesh);
 	TeabagMesh->SetSimulatePhysics(true);
 
 	ProjectileMovement = CreateDefaultSubobject<UProjectileMovementComponent>(TEXT("Projectile Movement"));
