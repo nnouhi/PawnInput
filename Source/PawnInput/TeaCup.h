@@ -42,6 +42,9 @@ private:
 	UFUNCTION()
 		void OnOverlapEnd(UPrimitiveComponent* OverlappedComp, AActor* OtherActor,
 			UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
+	UPROPERTY(EditAnywhere)
+		float MoveSpeed = 50.0f;
+	bool flag = false;
 
 
 };

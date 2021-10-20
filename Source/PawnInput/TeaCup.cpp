@@ -30,14 +30,36 @@ void ATeaCup::BeginPlay()
 	GameModeRef = Cast<APawnInputGameModeBase>(UGameplayStatics::GetGameMode(GetWorld()));
 	CollisionBox->OnComponentBeginOverlap.AddDynamic(this, &ATeaCup::OnOverlapBegin);
 	CollisionBox->OnComponentEndOverlap.AddDynamic(this, &ATeaCup::OnOverlapEnd);
-
 }
 
 // Called every frame
 void ATeaCup::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+	FString LevelNameTeaCup = GetWorld()->GetMapName();
+	//Remove the UEDPIE prefix
+	LevelNameTeaCup.RemoveFromStart(GetWorld()->StreamingLevelsPrefix);
 
+	
+
+	if (LevelNameTeaCup.Equals("LastLevel"))
+	{
+		FVector DeltaMovement = FVector(0, MoveSpeed * DeltaTime, 0);
+		AddActorLocalOffset(DeltaMovement, true);
+
+		if (GetActorLocation().Y > 500 && flag == false)
+		{
+			MoveSpeed = -MoveSpeed;
+			flag = true;
+		}
+		else if (GetActorLocation().Y < -500  && flag == true)
+		{
+			MoveSpeed = -MoveSpeed;
+			flag = false;
+		}
+
+		
+	}
 }
 
 void ATeaCup::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)

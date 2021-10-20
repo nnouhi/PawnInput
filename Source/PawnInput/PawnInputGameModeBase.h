@@ -23,7 +23,8 @@ private:
 	UFUNCTION()
 		void StartGame();
 	UFUNCTION()
-		void GameOver();
+		void AdvanceNextLevel(const FString& LevelName);
 
 	int PointsCollected=0;
+	
 };
