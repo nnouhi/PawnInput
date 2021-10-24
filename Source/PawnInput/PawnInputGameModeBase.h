@@ -12,8 +12,12 @@ class PAWNINPUT_API APawnInputGameModeBase : public AGameModeBase
 	GENERATED_BODY()
 
 public:
+	APawnInputGameModeBase();
+
 	UFUNCTION()
 		void PointsScored();
+	UFUNCTION()
+		static void GameOver();
 
 protected:
 	// Called when the game starts or when spawned
@@ -24,7 +28,13 @@ private:
 		void StartGame();
 	UFUNCTION()
 		void AdvanceNextLevel(const FString& LevelName);
+	UFUNCTION()
+		void TimeUp();
+	UPROPERTY(VisibleAnywhere)
+		FTimerHandle EndGameTimer;
+	UPROPERTY(VisibleAnywhere, Category = "Game Timer")
+		float GameDuration;
 
-	int PointsCollected=0;
+	int PointsCollected;
 	
 };

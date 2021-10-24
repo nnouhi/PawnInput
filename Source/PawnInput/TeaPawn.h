@@ -20,15 +20,17 @@ class PAWNINPUT_API ATeaPawn : public APawn
 public:
 	// Sets default values for this pawn's properties
 	ATeaPawn();
-
+	// Called every frame
+	virtual void Tick(float DeltaTime) override;
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
 public:	
-
+	
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+	
 
 private:
 	//Component initialization
@@ -46,7 +48,7 @@ private:
 
 	UPROPERTY(EditAnywhere)
 		TSubclassOf<ATeaBag> TeabagClass;
-		
+			
 	//Used for teapot
 	UPROPERTY(EditAnywhere,Category="MoveSpeed")
 		float MoveSpeed = 200.0f;
@@ -81,6 +83,5 @@ private:
 
 	//Methods for pawn shooting
 	void OnBeginFire();
-	void OnEndFire();
-
+	void OnEndFire();		
 };

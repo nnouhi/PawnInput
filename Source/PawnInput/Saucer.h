@@ -4,18 +4,17 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "TeaBag.generated.h"
-
-class UProjectileMovementComponent;
+#include "TeaBag.h"
+#include "Saucer.generated.h"
 
 UCLASS()
-class PAWNINPUT_API ATeaBag : public AActor
+class PAWNINPUT_API ASaucer : public AActor
 {
 	GENERATED_BODY()
 	
 public:	
 	// Sets default values for this actor's properties
-	ATeaBag();
+	ASaucer();
 
 protected:
 	// Called when the game starts or when spawned
@@ -24,19 +23,15 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+
 private:
-	//Used for teabag
 	UPROPERTY(VisibleAnywhere)
-		UStaticMeshComponent* TeabagMesh;
+		UStaticMeshComponent* SaucerMesh;
 
 	UPROPERTY(VisibleAnywhere)
-		UProjectileMovementComponent* ProjectileMovement;
-		
-	UPROPERTY(VisibleAnywhere)
-		float MovementSpeed = 1300.0f;
+		float SoucerHealth;
+
 	UFUNCTION()
-		void OnHit(AActor* SelfActor, AActor* OtherActor, FVector NormalImpulse,
-			const FHitResult& Hit);
-	UPROPERTY(EditAnywhere, Category = "Teabag Damage")
-		float TeabagDamage = 10.0f;
+		virtual float TakeDamage(float DamageAmount, struct FDamageEvent const& DamageEvent,
+		AController* EventInstigator, AActor* DamageCauser) override;
 };

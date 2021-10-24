@@ -3,7 +3,10 @@
 
 #include "TeaPawn.h"
 #include "Camera/CameraComponent.h"
+#include "GameFramework/Character.h"
+#include "GameFramework/Controller.h"
 #include "GameFramework/SpringArmComponent.h"
+
 
 
 // Sets default values
@@ -38,8 +41,12 @@ ATeaPawn::ATeaPawn()
 void ATeaPawn::BeginPlay()
 {
 	Super::BeginPlay();
-	UE_LOG(LogTemp, Warning, TEXT("TEA PAWN CALLED"));
+	
+}
 
+void ATeaPawn::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
 }
 
 // Called to bind functionality to input
@@ -56,7 +63,6 @@ void ATeaPawn::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 	//Shoot with Mouse Left
 	PlayerInputComponent->BindAction("Fire", IE_Pressed, this, &ATeaPawn::OnBeginFire);
 	PlayerInputComponent->BindAction("Fire", IE_Released ,this, &ATeaPawn::OnEndFire);
-
 }
 
 void ATeaPawn::SetMoveAmount(float Value)
@@ -93,7 +99,13 @@ void ATeaPawn::OnEndFire()
 
 		//spawns the teabag at the location and rotation of our spawn point
 		ATeaBag* TempBag = GetWorld()->SpawnActor<ATeaBag>(TeabagClass, SpawnLocation, SpawnRotation);
+		TempBag->SetOwner(this);
 	}
 
 }
+
+
+
+
+
 
