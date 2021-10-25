@@ -4,7 +4,9 @@
 #include "TeaPawn.h"
 #include "Camera/CameraComponent.h"
 #include "GameFramework/Character.h"
-#include "GameFramework/Controller.h"
+#include "GameFramework/PlayerController.h"
+//file to include
+#include "Kismet/GameplayStatics.h"
 #include "GameFramework/SpringArmComponent.h"
 
 
@@ -13,7 +15,7 @@
 ATeaPawn::ATeaPawn()
 {
  	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = false;
+	PrimaryActorTick.bCanEverTick = true;
 
 	//Set-up Teapot Mesh
 	TeapotMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Teapot Mesh"));
@@ -35,18 +37,34 @@ ATeaPawn::ATeaPawn()
 	ProjectileSpawnPoint = CreateDefaultSubobject<USceneComponent>(TEXT("Projectile Spawn Point"));
 	SpringArm->AttachTo(TeapotMesh);
 
+	bJumping = false;
 }
 
 // Called when the game starts or when spawned
 void ATeaPawn::BeginPlay()
 {
 	Super::BeginPlay();
-	
+
+
 }
 
 void ATeaPawn::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+	if (bJumping)
+	{
+		//Get pawn reference
+	/*	APawn* pawnTest = UGameplayStatics::GetPlayerPawn(GetWorld(),0);
+		if (pawnTest != NULL)
+		{
+			ACharacter* charTest = (ACharacter*)(pawnTest);
+			if (charTest != NULL)
+			{
+				UE_LOG(LogTemp, Warning, TEXT("Obtained"));
+				charTest->Jump();
+			}
+		}*/
+	}
 }
 
 // Called to bind functionality to input
@@ -63,6 +81,9 @@ void ATeaPawn::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 	//Shoot with Mouse Left
 	PlayerInputComponent->BindAction("Fire", IE_Pressed, this, &ATeaPawn::OnBeginFire);
 	PlayerInputComponent->BindAction("Fire", IE_Released ,this, &ATeaPawn::OnEndFire);
+
+	PlayerInputComponent->BindAction("Jump", IE_Pressed, this, &ATeaPawn::OnJump);
+	PlayerInputComponent->BindAction("Jump", IE_Released, this, &ATeaPawn::OnJump);
 }
 
 void ATeaPawn::SetMoveAmount(float Value)
@@ -102,6 +123,18 @@ void ATeaPawn::OnEndFire()
 		TempBag->SetOwner(this);
 	}
 
+}
+
+void ATeaPawn::OnJump()
+{
+	if (bJumping)
+	{
+		bJumping = false;
+	}
+	else
+	{
+		bJumping = true;
+	}
 }
 
 

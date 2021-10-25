@@ -48,6 +48,8 @@ private:
 
 	UPROPERTY(EditAnywhere)
 		TSubclassOf<ATeaBag> TeabagClass;
+
+	ATeaPawn* myPawn;
 			
 	//Used for teapot
 	UPROPERTY(EditAnywhere,Category="MoveSpeed")
@@ -75,7 +77,7 @@ private:
 	UPROPERTY(EditAnywhere, Category = "Camera Rotation")
 		float InRoll = 0.0f;
 
-	
+
 	//Methods for pawn movement
 	void SetMoveAmount(float Value);
 	void SetRotateAmount(float Value);
@@ -84,4 +86,8 @@ private:
 	//Methods for pawn shooting
 	void OnBeginFire();
 	void OnEndFire();		
+
+	void OnJump();
+
+	bool bJumping;
 };
