@@ -4,6 +4,7 @@
 #include "TeaPawn.h"
 #include "Camera/CameraComponent.h"
 #include "GameFramework/Character.h"
+#include "TeaCharacter.h"
 #include "GameFramework/PlayerController.h"
 //file to include
 #include "Kismet/GameplayStatics.h"
@@ -54,16 +55,17 @@ void ATeaPawn::Tick(float DeltaTime)
 	if (bJumping)
 	{
 		//Get pawn reference
-	/*	APawn* pawnTest = UGameplayStatics::GetPlayerPawn(GetWorld(),0);
+		APawn* pawnTest = UGameplayStatics::GetPlayerPawn(GetWorld(),0);
 		if (pawnTest != NULL)
 		{
-			ACharacter* charTest = (ACharacter*)(pawnTest);
-			if (charTest != NULL)
+			ATeaCharacter* charTest = (ATeaCharacter*)(pawnTest);
+			if (IsValid(charTest))
 			{
 				UE_LOG(LogTemp, Warning, TEXT("Obtained"));
-				charTest->Jump();
+				
+			/*	charTest->Jump();*/
 			}
-		}*/
+		}
 	}
 }
 

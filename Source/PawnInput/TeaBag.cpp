@@ -42,24 +42,31 @@ void ATeaBag::Tick(float DeltaTime)
 
 void ATeaBag::OnHit(AActor* SelfActor, AActor* OtherActor, FVector NormalImpulse, const FHitResult& Hit)
 {
-	if (OtherActor->GetClass()->IsChildOf(ASaucer::StaticClass()))
+	if (IsValid(OtherActor))
 	{
-		if (AActor* ProjectileOwner = GetOwner())
+		if (OtherActor->GetClass()->IsChildOf(ASaucer::StaticClass()))
 		{
-			UGameplayStatics::ApplyDamage(
-				OtherActor, //actor that will be damaged
-				TeabagDamage, //the base damage to apply
-				ProjectileOwner->GetInstigatorController(), //controller that caused the damage
-				this, //Actor that actually caused the damage
-				UDamageType::StaticClass() //class that describes the damage that was done
-			);
-			Destroy();
-			UE_LOG(LogTemp, Warning, TEXT("Teabag Collided with Soucer"));
+			if (AActor* ProjectileOwner = GetOwner())
+			{
+				UGameplayStatics::ApplyDamage(
+					OtherActor, //actor that will be damaged
+					TeabagDamage, //the base damage to apply
+					ProjectileOwner->GetInstigatorController(), //controller that caused the damage
+					this, //Actor that actually caused the damage
+					UDamageType::StaticClass() //class that describes the damage that was done
+				);
+				Destroy();
+				UE_LOG(LogTemp, Warning, TEXT("Teabag Collided with Soucer"));
+			}
+			else
+			{
+				UE_LOG(LogTemp, Warning, TEXT("Nullptr returned"));
+			}
 		}
-		else
-		{
-			UE_LOG(LogTemp, Warning, TEXT("Nullptr returned"));
-		}
+	}
+	else
+	{
+		return;
 	}
 }
 

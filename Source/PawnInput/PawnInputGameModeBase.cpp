@@ -3,9 +3,6 @@
 
 #include "PawnInputGameModeBase.h"
 #include "Kismet/GameplayStatics.h"
-#include <string>
-
-
 
 APawnInputGameModeBase::APawnInputGameModeBase()
 {
@@ -14,20 +11,17 @@ APawnInputGameModeBase::APawnInputGameModeBase()
 }
 void APawnInputGameModeBase::PointsScored()
 {
-	FString LevelName = GetWorld()->GetMapName();
-	//Remove the UEDPIE prefix
-	LevelName.RemoveFromStart(GetWorld()->StreamingLevelsPrefix);
 	
 	PointsCollected += 1;
 
 	UE_LOG(LogTemp, Warning, TEXT("You've Scored, Yours points are: %d"),PointsCollected);
 
 	//Debugging 
-	UE_LOG(LogTemp, Warning, TEXT("Map: %s"), *LevelName);
+	/*UE_LOG(LogTemp, Warning, TEXT("Map: %s"), *LevelName);*/
 
 	if (PointsCollected == 10)
 	{
-		AdvanceNextLevel(LevelName);
+		AdvanceNextLevel(GetMapName());
 	}
 	
 }
@@ -65,6 +59,14 @@ void APawnInputGameModeBase::AdvanceNextLevel(const FString& LevelName)
 void APawnInputGameModeBase::TimeUp()
 {
 	UE_LOG(LogTemp, Warning, TEXT("Times Up, Unfortunately you lose!"));
+}
+
+FString APawnInputGameModeBase::GetMapName()
+{
+	FString LevelName = GetWorld()->GetMapName();
+	//Remove the UEDPIE prefix
+	LevelName.RemoveFromStart(GetWorld()->StreamingLevelsPrefix);
+	return LevelName;
 }
 
 void APawnInputGameModeBase::GameOver()

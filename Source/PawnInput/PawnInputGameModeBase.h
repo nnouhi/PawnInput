@@ -3,8 +3,11 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include <string>
 #include "GameFramework/GameModeBase.h"
 #include "PawnInputGameModeBase.generated.h"
+
+using namespace std;
 
 UCLASS()
 class PAWNINPUT_API APawnInputGameModeBase : public AGameModeBase
@@ -18,7 +21,9 @@ public:
 		void PointsScored();
 	UFUNCTION()
 		static void GameOver();
-
+	UFUNCTION()
+		FString GetMapName();
+	
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
