@@ -28,6 +28,7 @@ void ATeaCup::BeginPlay()
 {
 	Super::BeginPlay();
 	GameModeRef = Cast<APawnInputGameModeBase>(UGameplayStatics::GetGameMode(GetWorld()));
+	
 	CollisionBox->OnComponentBeginOverlap.AddDynamic(this, &ATeaCup::OnOverlapBegin);
 	CollisionBox->OnComponentEndOverlap.AddDynamic(this, &ATeaCup::OnOverlapEnd);
 }

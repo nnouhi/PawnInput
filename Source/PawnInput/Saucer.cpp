@@ -16,6 +16,7 @@ ASaucer::ASaucer()
 	SetRootComponent(SaucerMesh);
 
 	SoucerHealth = 50.0f;
+	
 }
 
 // Called when the game starts or when spawned

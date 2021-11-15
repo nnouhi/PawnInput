@@ -119,9 +119,9 @@ void ATeaPawn::OnEndFire()
 		//saves the location and rotation information of our teapots ProjectileSpawnPoint
 		FVector SpawnLocation = ProjectileSpawnPoint->GetComponentLocation();
 		FRotator SpawnRotation = ProjectileSpawnPoint->GetComponentRotation();
-
 		//spawns the teabag at the location and rotation of our spawn point
 		ATeaBag* TempBag = GetWorld()->SpawnActor<ATeaBag>(TeabagClass, SpawnLocation, SpawnRotation);
+		TempBag
 		TempBag->SetOwner(this);
 	}
 

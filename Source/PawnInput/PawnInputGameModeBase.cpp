@@ -7,7 +7,7 @@
 APawnInputGameModeBase::APawnInputGameModeBase()
 {
 	PointsCollected = 0;
-	GameDuration = 10.0f;
+	GameDuration = 120.0f;
 }
 void APawnInputGameModeBase::PointsScored()
 {
@@ -59,6 +59,7 @@ void APawnInputGameModeBase::AdvanceNextLevel(const FString& LevelName)
 void APawnInputGameModeBase::TimeUp()
 {
 	UE_LOG(LogTemp, Warning, TEXT("Times Up, Unfortunately you lose!"));
+	UGameplayStatics::OpenLevel(GetWorld(), "EndLevel");
 }
 
 FString APawnInputGameModeBase::GetMapName()
